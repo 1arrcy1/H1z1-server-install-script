@@ -14,6 +14,7 @@ apt install mongodb-org -y
 systemctl start mongod
 systemctl enable mongod
 echo "installing GUI web"
+
 npm i pm2 -g
 npm i -g mongo-gui
 pm2 start mongo-gui
@@ -46,4 +47,3 @@ echo "Acces MogoDB with http://ip:4321/"
 echo "Acces server with ip:1115"
 echo "pm2 kill to stop server"
 fi
-
