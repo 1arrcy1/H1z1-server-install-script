@@ -34,6 +34,7 @@ export CLIENT_SIXTEEN="true"
 export LOGINSERVER_IP="127.0.0.1"
 export MONGO_URL="mongodb://localhost:27017/"
 pm2 start out/servers/ZoneServer2016/zoneserver.js --watch
+export DEBUG="*"
 pm2 start out/servers/LoginServer/loginserver.js --watch
 pm2 startup
 
@@ -44,6 +45,7 @@ echo 'export LOGINSERVER_IP="127.0.0.1"' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 kill' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start mongo-gui' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start out/servers/ZoneServer2016/zoneserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'export DEBUG="*"' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start out/servers/LoginServer/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
 echo 'rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
