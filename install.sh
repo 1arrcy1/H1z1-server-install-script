@@ -23,7 +23,9 @@ npm install -g n
 n stable
 
 git clone https://github.com/H1emu/h1z1-server.git
-cd h1z1-server/scripts
+cd h1z1-server
+npm install
+cd scripts
 rm -r demo/loginserver2016.js
 echo 'process.env.DEBUG = "*";' >> demo/loginserver2016.js
 echo 'const H1Z1servers = require("../../h1z1-server");' >> demo/loginserver2016.js
@@ -34,9 +36,6 @@ echo ');' >> demo/loginserver2016.js
 echo 'server._protocol = new H1Z1servers.LoginProtocol("LoginUdp_11");' >> demo/loginserver2016.js
 echo 'server.start();' >> demo/loginserver2016.js
 
-cd ..
-npm install
-cd scripts
 pm2 start h1z1-server-demo-2016.js # 2015 with pm2 start h1z1-server-demo-2015.js + don't forget MogoDB
 pm2 startup
 
