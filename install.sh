@@ -50,7 +50,7 @@ echo 'rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
 echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
 echo 'reboot now' >> pm2-start-2016-Arrcy.sh
 
-chmod + x pm2-start-2016-Arrcy.sh
+chmod +x pm2-start-2016-Arrcy.sh
 echo "script completed"
 echo "script completed"
 echo "script completed"
