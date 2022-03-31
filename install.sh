@@ -1,6 +1,7 @@
 #!/bin/bash
 
 if (( $EUID == 1 )); then
+
     echo "Please run as root"
     exit
 else
@@ -40,7 +41,7 @@ echo 'export VSCODE_DEBUG="true"' >> pm2-start-2016-Arrcy.sh
 echo 'export DEBUG="ZoneServer"' >> pm2-start-2016-Arrcy.sh
 echo 'export CLIENT_SIXTEEN="true"' >> pm2-start-2016-Arrcy.sh
 echo 'export LOGINSERVER_IP="127.0.0.1"' >> pm2-start-2016-Arrcy.sh
-echo pm2 kill' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 kill' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start mongo-gui' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start out/servers/ZoneServer2016/zoneserver.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start out/servers/LoginServer/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
@@ -48,8 +49,8 @@ echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
 echo 'rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
 echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
 echo 'reboot now' >> pm2-start-2016-Arrcy.sh
-chmod + x pm2-start-2016-Arrcy.sh
 
+chmod + x pm2-start-2016-Arrcy.sh
 echo "script completed"
 echo "script completed"
 echo "script completed"
