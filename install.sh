@@ -26,18 +26,14 @@ hash -r
 git clone https://github.com/H1emu/h1z1-server.git
 cd h1z1-server
 npm install
-cd scripts
-rm -r demo/loginserver2016.js
-echo 'process.env.DEBUG = "*";' >> demo/loginserver2016.js
-echo 'const H1Z1servers = require("../../h1z1-server");' >> demo/loginserver2016.js
-echo 'var server = new H1Z1servers.LoginServer(' >> demo/loginserver2016.js
-echo ' 1115, // <- server port' >> demo/loginserver2016.js
-echo ' "mongodb://127.0.0.1:27017" // <- MongoDB address ( if blank server start in solo mode )' >> demo/loginserver2016.js
-echo ');' >> demo/loginserver2016.js
-echo 'server._protocol = new H1Z1servers.LoginProtocol("LoginUdp_11");' >> demo/loginserver2016.js
-echo 'server.start();' >> demo/loginserver2016.js
 
-pm2 start h1z1-server-demo-2016.js # 2015 with pm2 start h1z1-server-demo-2015.js + don't forget MogoDB
+export VSCODE_DEBUG="true"
+export DEBUG="ZoneServer"
+export CLIENT_SIXTEEN="true"
+export LOGINSERVER_IP="127.0.0.1"
+export MONGO_URL="mongodb://localhost:27017/"
+pm2 start out/servers/ZoneServer2016/zoneserver.js --watch
+pm2 start out/servers/LoginServer/loginserver.js --watch
 pm2 startup
 
 echo "script completed"
