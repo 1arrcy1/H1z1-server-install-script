@@ -1,9 +1,8 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 
-   exit 1
-
+if (( $EUID == 1 )); then
+    echo "Please run as root"
+    exit
 else
     echo "working"
 apt update && apt upgrade -y
@@ -37,10 +36,29 @@ pm2 start out/servers/ZoneServer2016/zoneserver.js --watch
 pm2 start out/servers/LoginServer/loginserver.js --watch
 pm2 startup
 
+echo 'export VSCODE_DEBUG="true"' >> pm2-start-2016-Arrcy.sh
+echo 'export DEBUG="ZoneServer"' >> pm2-start-2016-Arrcy.sh
+echo 'export CLIENT_SIXTEEN="true"' >> pm2-start-2016-Arrcy.sh
+echo 'export LOGINSERVER_IP="127.0.0.1"' >> pm2-start-2016-Arrcy.sh
+echo pm2 kill' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start mongo-gui' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start out/servers/ZoneServer2016/zoneserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start out/servers/LoginServer/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
+echo 'rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
+echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
+echo 'reboot now' >> pm2-start-2016-Arrcy.sh
+chmod + x pm2-start-2016-Arrcy.sh
+
 echo "script completed"
 echo "script completed"
 echo "script completed"
 echo "Acces MogoDB with http://ip:4321/"
 echo "Acces server with ip:1115"
-echo "pm2 kill to stop server"
+echo "pm2 kill to stop server, ./pm2-start-2016-Arrcy.sh tp start server"
+echo "pm2 logs" to see what is happening
+echo "write this info down reboot in 5 seconds"
+sleep 5
+reboot now
+
 fi
