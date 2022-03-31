@@ -1,8 +1,1 @@
-# H1z1-server-install-script
-Install h1z1 server with a simple script (tested with ubuntu 20.4)
-
-To run the script 
-apt install git
-git clone https://github.com/1arrcy1/H1z1-server-install-script.git
-chmod +x installserver.sh
-sudo ./installserver.sh
+<h1 dir="auto">H1z1-server-install-script</h1><p dir="auto">Install h1z1 server with a simple script (tested with ubuntu 20.4)</p><p dir="auto">To run the script:</p><p dir="auto"><code>apt install git</code></p><p dir="auto"><code>git clone <a href="https://github.com/1arrcy1/H1z1-server-install-script.git">https://github.com/1arrcy1/H1z1-server-install-script.git</a></code> </p><p dir="auto"><code>chmod +x installserver.sh sudo</code></p><p dir="auto"><code>./installserver.sh</code></p>
