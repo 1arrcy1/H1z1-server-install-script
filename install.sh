@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if (( $EUID == 1 )); then
-    echo "Please run as root"
-    exit
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+
 else
     echo "working"
 apt update && apt upgrade -y
