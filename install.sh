@@ -22,6 +22,7 @@ npm cache clean -f
 npm install -g n
 n stable
 
+hash -r
 git clone https://github.com/H1emu/h1z1-server.git
 cd h1z1-server
 npm install
