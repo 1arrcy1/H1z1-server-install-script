@@ -48,8 +48,8 @@ echo 'pm2 start out/servers/ZoneServer2016/zoneserver.js --watch' >> pm2-start-2
 echo 'export DEBUG="*"' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start out/servers/LoginServer/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
-echo 'rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
-echo 'echo sleep 5' >> pm2-start-2016-Arrcy.sh
+echo 'echo rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
+echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
 echo 'reboot now' >> pm2-start-2016-Arrcy.sh
 
 chmod +x pm2-start-2016-Arrcy.sh
