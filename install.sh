@@ -66,7 +66,6 @@ echo "Acces MogoDB with http://ip:4321/"
 echo "Acces server with ip:1115"
 echo "pm2 kill to stop server, ./pm2-start-2016-Arrcy.sh to start server"
 echo "pm2 logs" to see what is happening
-echo "write this info down reboot in 5 seconds"
 echo "try pm2 stop/start id when you get an error about mongoDB write"
 sleep 5
 
