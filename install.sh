@@ -25,39 +25,38 @@ npm install -g n
 n stable
 
 hash -r
-git clone https://github.com/H1emu/h1emu-server-template
-cd h1emu-server-template
-npm i h1z1-server@latest
-npm run build
+git clone https://github.com/QuentinGruber/h1z1-server.git
+cd h1z1-server
+npm install
 
-
+export NODE_ENV="production"
 export DEBUG="ZoneServer"
 export CLIENT_SIXTEEN="true"
 #remove LOGINSERVER if you want to use h1emu community list
-#export WORLD_ID="change me and remove LOGINSERVER"
+export WORLD_ID="2"
 export LOGINSERVER_IP="127.0.0.1"
 export MONGO_URL="mongodb://localhost:27017/"
 
-pm2 start out/zoneserver.js --watch
+pm2 start docker/2016/zoneServer.js --watch
 export DEBUG="*"
-pm2 start out/loginserver.js --watch
+pm2 start docker/2015/loginServer.js --watch
 pm2 startup
 
 echo 'export DEBUG="ZoneServer"' >> pm2-start-2016-Arrcy.sh
 echo 'export CLIENT_SIXTEEN="true"' >> pm2-start-2016-Arrcy.sh
 echo '#remove LOGINSERVER if you want to use h1emu community list' >> pm2-start-2016-Arrcy.sh
-echo '#export WORLD_ID="change me and remove LOGINSERVER"' >> pm2-start-2016-Arrcy.sh
+echo 'export WORLD_ID="2"' >> pm2-start-2016-Arrcy.sh
 echo 'export LOGINSERVER_IP="127.0.0.1"' >> pm2-start-2016-Arrcy.sh
 echo 'export MONGO_URL="mongodb://localhost:27017/"' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 kill' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start mongo-gui' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start out/zoneserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start docker/2016/zoneServer.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'export DEBUG="*"' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start out/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start docker/2015/loginServer.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
-echo 'echo rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
+echo 'echo try pm2 stop/start id when you get an error about mongoDB write' >> pm2-start-2016-Arrcy.sh
 echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
-echo 'reboot now' >> pm2-start-2016-Arrcy.sh
+
 
 chmod +x pm2-start-2016-Arrcy.sh
 echo "script completed"
@@ -68,7 +67,8 @@ echo "Acces server with ip:1115"
 echo "pm2 kill to stop server, ./pm2-start-2016-Arrcy.sh to start server"
 echo "pm2 logs" to see what is happening
 echo "write this info down reboot in 5 seconds"
+echo "try pm2 stop/start id when you get an error about mongoDB write"
 sleep 5
-reboot now
+
 
 fi
