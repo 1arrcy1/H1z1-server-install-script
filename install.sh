@@ -24,31 +24,35 @@ npm install -g n
 n stable
 
 hash -r
-git clone https://github.com/H1emu/h1z1-server.git
-cd h1z1-server
-npm install
+git clone https://github.com/H1emu/h1emu-server-template
+cd h1emu-server-template
+npm i h1z1-server@latest
+npm run build
 
-export VSCODE_DEBUG="true"
+
 export DEBUG="ZoneServer"
 export CLIENT_SIXTEEN="true"
+#remove LOGINSERVER if you want to use h1emu community list
+#export WORLD_ID="change me and remove LOGINSERVER"
 export LOGINSERVER_IP="127.0.0.1"
 export MONGO_URL="mongodb://localhost:27017/"
-pm2 start out/servers/ZoneServer2016/zoneserver.js --watch
+
+pm2 start out/zoneserver.js --watch
 export DEBUG="*"
-pm2 start out/servers/LoginServer/loginserver.js --watch
+pm2 start out/loginserver.js --watch
 pm2 startup
 
-echo 'export VSCODE_DEBUG="true"' >> pm2-start-2016-Arrcy.sh
 echo 'export DEBUG="ZoneServer"' >> pm2-start-2016-Arrcy.sh
 echo 'export CLIENT_SIXTEEN="true"' >> pm2-start-2016-Arrcy.sh
+echo '#remove LOGINSERVER if you want to use h1emu community list' >> pm2-start-2016-Arrcy.sh
+echo '#export WORLD_ID="change me and remove LOGINSERVER"' >> pm2-start-2016-Arrcy.sh
 echo 'export LOGINSERVER_IP="127.0.0.1"' >> pm2-start-2016-Arrcy.sh
-echo 'export export WORLD_ID=2"' >> pm2-start-2016-Arrcy.sh
 echo 'export MONGO_URL="mongodb://localhost:27017/"' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 kill' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 start mongo-gui' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start out/servers/ZoneServer2016/zoneserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start out/zoneserver.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'export DEBUG="*"' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start out/servers/LoginServer/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
+echo 'pm2 start out/loginserver.js --watch' >> pm2-start-2016-Arrcy.sh
 echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
 echo 'echo rebooting in 5 seconds' >> pm2-start-2016-Arrcy.sh
 echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
