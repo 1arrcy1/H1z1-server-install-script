@@ -32,7 +32,7 @@ npm install
 export NODE_ENV="production"
 export DEBUG="ZoneServer"
 export CLIENT_SIXTEEN="true"
-#remove LOGINSERVER if you want to use h1emu community list
+#remove LOGINSERVER if you want to use h1emu community list + change WORLD_ID={your givin WORLD_ID by h1emu admin}
 export WORLD_ID="2"
 export LOGINSERVER_IP="127.0.0.1"
 export MONGO_URL="mongodb://localhost:27017/"
