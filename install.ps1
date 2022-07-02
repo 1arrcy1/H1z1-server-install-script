@@ -1,12 +1,12 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-powershell
+. $profile
 choco install -y git
 choco install -y nvm
 choco install mongodb --pre 
-powershell
+. $profile
  
 nvm install 16.13.1
-powershell
+. $profile
 nvm use 16.13.1
  
 git clone https://github.com/H1emu/h1z1-server
