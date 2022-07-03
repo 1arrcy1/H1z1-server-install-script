@@ -10,10 +10,6 @@ function Invoke-PowerShell {
     powershell -nologo
     Invoke-PowerShell
 }
-function Invoke-PowerShell {
-    powershell -nologo
-    Invoke-PowerShell
-}
  
  
 git clone https://github.com/H1emu/h1z1-server
