@@ -1,21 +1,24 @@
+ines (116 sloc)  9.56 KB
+
 #!/bin/bash
 
 if (( $EUID == 1 )); then
 
-    echo "Please run as root"
-    exit
+echo "Please use root user or sudo ./install.sh under your non-root account"
+exit
 else
-    echo "working"
+echo "Running H1emu.com Private Server installer"
 apt update && apt upgrade -y
 apt install nodejs npm git net-tools software-properties-common nano node-typescript -y
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
 add-apt-repository 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse' -y
-
 apt install mongodb-org -y
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sysctl -w net.ipv6.conf.lo.disable_ipv6=1
 systemctl start mongod
 systemctl enable mongod
-echo "installing GUI web"
-
+echo "Installing MongoDB Web GUI"
 npm i pm2 -g
 npm i -g mongo-gui
 pm2 kill
@@ -23,51 +26,96 @@ pm2 start mongo-gui
 npm cache clean -f
 npm install -g n
 n stable
-
 hash -r
 git clone https://github.com/QuentinGruber/h1z1-server.git
 cd h1z1-server
 npm install
-
-export NODE_ENV="production"
 export DEBUG="ZoneServer"
 export CLIENT_SIXTEEN="true"
-#remove LOGINSERVER if you want to use h1emu community list + change WORLD_ID={your givin WORLD_ID by h1emu admin}
 export WORLD_ID="2"
 export LOGINSERVER_IP="127.0.0.1"
 export MONGO_URL="mongodb://localhost:27017/"
-
 pm2 start docker/2016/zoneServer.js --watch
 export DEBUG="*"
 pm2 start docker/2015/loginServer.js --watch
 pm2 startup
+echo 'sysctl -w net.ipv6.conf.all.disable_ipv6=1' >> start.sh
+echo 'sysctl -w net.ipv6.conf.default.disable_ipv6=1' >> start.sh
+echo 'sysctl -w net.ipv6.conf.lo.disable_ipv6=1' >> start.sh
+echo 'export DEBUG="ZoneServer"' >> start.sh
+echo 'export CLIENT_SIXTEEN="true"' >> start.sh
+echo 'export WORLD_ID="2"' >> start.sh
+echo 'export LOGINSERVER_IP="127.0.0.1"' >> start.sh
+echo 'export MONGO_URL="mongodb://localhost:27017/"' >> start.sh
+echo 'pm2 kill' >> start.sh
+echo 'pm2 start mongo-gui' >> start.sh
+echo 'pm2 start docker/2016/zoneServer.js --watch' >> start.sh
+echo 'pm2 start docker/2015/loginServer.js --watch' >> start.sh
+echo 'export DEBUG="*"' >> start.sh
+echo 'pm2 startup' >> start.sh
+echo 'sleep 5' >> start.sh
+chmod +x start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************██╗░░██╗░░███╗░░███████╗███╗░░░███╗██╗░░░██╗**********************************" ' >> start.sh
+echo 'echo "****************██║░░██║░████║░░██╔════╝████╗░████║██║░░░██║**********************************" ' >> start.sh
+echo 'echo "****************███████║██╔██║░░█████╗░░██╔████╔██║██║░░░██║**********************************" ' >> start.sh
+echo 'echo "****************██╔══██║╚═╝██║░░██╔══╝░░██║╚██╔╝██║██║░░░██║**********************************" ' >> start.sh
+echo 'echo "****************██║░░██║███████╗███████╗██║░╚═╝░██║╚██████╔╝**********************************" ' >> start.sh
+echo 'echo "****************╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░░░░╚═╝░╚═════╝░**********************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************Access your MongoDB with http://SERVERIP:4321/ *******************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************To Connect to server with Game client SERVERIP:1115***************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************Use (pm2 kill) to stop server*************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************Use (./start.sh) to start server**********************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************Your H1emu Server Should now be running***************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
 
-echo 'export DEBUG="ZoneServer"' >> pm2-start-2016-Arrcy.sh
-echo 'export CLIENT_SIXTEEN="true"' >> pm2-start-2016-Arrcy.sh
-echo '#remove LOGINSERVER if you want to use h1emu community list' >> pm2-start-2016-Arrcy.sh
-echo 'export WORLD_ID="2"' >> pm2-start-2016-Arrcy.sh
-echo 'export LOGINSERVER_IP="127.0.0.1"' >> pm2-start-2016-Arrcy.sh
-echo 'export MONGO_URL="mongodb://localhost:27017/"' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 kill' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start mongo-gui' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start docker/2016/zoneServer.js --watch' >> pm2-start-2016-Arrcy.sh
-echo 'export DEBUG="*"' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 start docker/2015/loginServer.js --watch' >> pm2-start-2016-Arrcy.sh
-echo 'pm2 startup' >> pm2-start-2016-Arrcy.sh
-echo 'echo try pm2 stop/start id when you get an error about mongoDB write' >> pm2-start-2016-Arrcy.sh
-echo 'sleep 5' >> pm2-start-2016-Arrcy.sh
-
-
-chmod +x pm2-start-2016-Arrcy.sh
-echo "script completed"
-echo "script completed"
-echo "script completed"
-echo "Acces MogoDB with http://ip:4321/"
-echo "Acces server with ip:1115"
-echo "pm2 kill to stop server, ./pm2-start-2016-Arrcy.sh to start server"
-echo "pm2 logs" to see what is happening
-echo "try pm2 stop/start id when you get an error about mongoDB write"
 sleep 5
 
-
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "****************██╗░░██╗░░███╗░░███████╗███╗░░░███╗██╗░░░██╗**********************************" 
+echo "****************██║░░██║░████║░░██╔════╝████╗░████║██║░░░██║**********************************" 
+echo "****************███████║██╔██║░░█████╗░░██╔████╔██║██║░░░██║**********************************" 
+echo "****************██╔══██║╚═╝██║░░██╔══╝░░██║╚██╔╝██║██║░░░██║**********************************" 
+echo "****************██║░░██║███████╗███████╗██║░╚═╝░██║╚██████╔╝**********************************" 
+echo "****************╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░░░░╚═╝░╚═════╝░**********************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "****************Access your MongoDB with http://SERVERIP:4321/ *******************************" 
+echo "**********************************************************************************************" 
+echo "****************To Connect to server with Game client SERVERIP:1115***************************" 
+echo "**********************************************************************************************" 
+echo "****************Use (pm2 kill) to stop server*************************************************" 
+echo "**********************************************************************************************"
+echo "****************Use (pm2 log) to monitor******************************************************"
+echo "**********************************************************************************************"
+echo "****************Use (./start.sh) to start server**********************************************" 
+echo "**********************************************************************************************" 
+echo "****************Your H1emu Server Should now be running***************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************" 
+echo "**********************************************************************************************"
 fi
