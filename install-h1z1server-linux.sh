@@ -1,5 +1,3 @@
-ines (116 sloc)  9.56 KB
-
 #!/bin/bash
 
 if (( $EUID == 1 )); then
