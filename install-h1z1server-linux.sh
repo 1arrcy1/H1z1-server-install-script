@@ -16,7 +16,7 @@ clear
 echo "Welcome to the installation script for h1emu-server"
 echo "Continue at your own risk or use ctl-c to cancel the installation"
 echo ""
-echo "You can request your WORLD_ID on the discord. If you do not know what a WORLD_ID is cancel the installation with ctl-c"
+echo "You can request your WORLD_ID on the discord. If you do not know what WORLD_ID is cancel the installation with ctl-c"
 echo -n "please enter your WORLD_ID : "
 read ID
 
@@ -24,21 +24,22 @@ read ID
 echo "Running H1emu.com Community Server installer"
 sleep 2
 apt update && apt upgrade -y
-apt install nodejs npm git net-tools software-properties-common nano node-typescript -y
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-add-apt-repository 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse' -y
+apt install nodejs npm git net-tools software-properties-common nano node-typescript net-tools curl -y
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | sudo gpg --batch --yes -o  /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+apt update
 apt install mongodb-org -y
 clear
 
 # Installing pm2-Dependencies
 echo "Installing MongoDB Web GUI"
-sleep 2
+sleep 3
 systemctl start mongod
 systemctl enable mongod
 npm i pm2 -g
 pm2 kill
 pm2 install pm2-logrotate
-npm i -g mongo-gui
+npm i -g mongo-gui@0.0.18
 pm2 start mongo-gui
 npm cache clean -f
 npm install -g n
@@ -61,32 +62,31 @@ pm2 start docker/2016/zoneServer.js --watch
 pm2 startup
 clear
 
-# Creating start.sh
-echo Creating start.sh script
-sleep 2
+
+# Creating start script
+echo "export WORLD_ID="$ID"" > start.sh
 echo '# Settings' >> start.sh
 echo 'sysctl -w net.ipv6.conf.all.disable_ipv6=1' >> start.sh
 echo 'sysctl -w net.ipv6.conf.default.disable_ipv6=1' >> start.sh
 echo 'sysctl -w net.ipv6.conf.lo.disable_ipv6=1' >> start.sh
+echo 'echo "stopping old session"' >> start.sh
+echo 'sleep 2' >> start.sh
 echo 'pm2 kill' >> start.sh
-echo 'service mongod stop' >> start.sh
+echo 'systemctl stop mongod' >> start.sh
 echo 'clear' >> start.sh
 echo '' >> start.sh
-echo '# Starting sever' >> start.sh
-echo 'echo "Starting server" ' >> start.sh
+echo '# Starting server' >> start.sh
+echo 'echo "Starting server"' >> start.sh
 echo 'sleep 2' >> start.sh
-echo 'echo "Starting mongodb" ' >> start.sh
-echo 'service mongod start' >> start.sh
-echo 'sleep 2' >> start.sh
+echo 'systemctl start mongod' >> start.sh
 echo 'export DEBUG="ZoneServer"' >> start.sh
 echo 'export CLIENT_SIXTEEN="true"' >> start.sh
 echo '#remove LOGINSERVER if you want to use h1emu community list' >> start.sh
-echo 'export WORLD_ID="$ID"' >> start.sh
 echo 'export MONGO_URL="mongodb://localhost:27017/"' >> start.sh
 echo 'pm2 start mongo-gui' >> start.sh
 echo 'pm2 start docker/2016/zoneServer.js --watch' >> start.sh
+echo 'export DEBUG="*"' >> start.sh
 echo 'pm2 startup' >> start.sh
-echo 'sleep 2' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
@@ -103,6 +103,8 @@ echo 'echo "****************██║░░██║███████╗█�
 echo 'echo "****************╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░░░░╚═╝░╚═════╝░**********************************" ' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "**********************************************************************************************" ' >> start.sh
+echo 'echo "****************You can find your ip with ifconfig********************************************" ' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
 echo 'echo "****************Access your MongoDB with http://SERVERIP:4321/ *******************************" ' >> start.sh
 echo 'echo "**********************************************************************************************" ' >> start.sh
@@ -134,6 +136,8 @@ echo "****************██║░░██║███████╗███�
 echo "****************╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░░░░╚═╝░╚═════╝░**********************************" 
 echo "**********************************************************************************************" 
 echo "**********************************************************************************************" 
+echo "**********************************************************************************************"
+echo "****************You can find your ip with ifconfig********************************************" 
 echo "**********************************************************************************************" 
 echo "****************Access your MongoDB with http://SERVERIP:4321/ *******************************" 
 echo "**********************************************************************************************" 
